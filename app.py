@@ -85,4 +85,4 @@ def translate_text():
     return render_template('translate.html', text=text, sign_language=sign_language)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0')

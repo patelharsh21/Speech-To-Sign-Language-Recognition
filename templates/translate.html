@@ -2,13 +2,28 @@
 <html>
 <head>
 	<title>Translation Results</title>
-</head>
+</head>	<script>
+		const signLanguageArray = ['static/letters/h.jpg', 'static/letters/a.jpg', 'static/letters/r.jpg', 'static/letters/s.jpg'];
+const intervalTime = 1000; // 3 seconds
+
+for (let i = 0; i < signLanguageArray.length; i++) {
+  setTimeout(() => {
+    const signLanguage = signLanguageArray[i];
+    const img = document.createElement('img');
+    img.src = signLanguage;
+    img.alt = '';
+    document.body.appendChild(img);
+  }, i * intervalTime);
+}
+
+	</script>
 <body>
+
 	<h1>Translation Results</h1>
 	<p>Original text: {{ text }}</p>
 	
-		<img src={{sign_language}} alt="">
-	
+		<img src='' alt="">
+
 	
 	
 </body>
