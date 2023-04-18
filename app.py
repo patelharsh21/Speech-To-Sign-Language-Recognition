@@ -77,7 +77,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('test2.html')
 
 @app.route('/translate', methods=['POST'])
 def translate_text():

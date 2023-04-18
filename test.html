@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Audio to Text Converter</title>
+	<style>
+		#record-btn {
+			background-color: #4CAF50;
+			color: white;
+			padding: 14px 20px;
+			border: none;
+			cursor: pointer;
+			font-size: 16px;
+		}
+
+		#output {
+			width: 100%;
+			height: 200px;
+			margin-top: 20px;
+			font-size: 16px;
+		}
+	</style>
+</head>
+<body> <form action="/translate" method="POST">
+	<button id="record-btn">Record Audio</button>
+	<textarea id="output"></textarea>
+   
+        <label for="text">Enter your text:</label> 
+        <input type="text" id="text" name="text"> 
+        <input type="submit" value="Translate">
+    </form>
+	<script >
+
+const recordButton = document.getElementById('record-btn');
+const outputArea = document.getElementById('output');
+
+let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+recognition.lang = 'en-US';
+recognition.interimResults = false;
+recognition.maxAlternatives = 1;
+
+recordButton.addEventListener('click', () => {
+	recognition.start();
+});
+
+recognition.onresult = (event) => {
+	const speechToText = event.results[0][0].transcript;
+	outputArea.innerHTML += speechToText;
+}
+
+recognition.onerror = (event) => {
+	console.error(event.error);
+}
+
+
+
+    </script>
+</body>
+</html>

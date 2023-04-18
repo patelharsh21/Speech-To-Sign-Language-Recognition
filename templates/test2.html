@@ -1,0 +1,119 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  
+  <form id="translate-form">
+    <button type="button" id="record-btn">Record Audio</button>
+    <div id="text-input-container" style="display: none">
+      <label for="text">Recorded text:</label> 
+      <textarea id="text-input" name="text"></textarea> 
+      <button type="submit" id="translate-btn">Translate</button>
+    </div>
+  </form>
+  <p>Translated text:</p>
+  <textarea id="output"></textarea>
+
+
+
+	<style>
+    body {
+        background-image: url("static/images/bg.jpg");
+        background-size: cover; /* to make the image cover the entire background */
+      }
+		img {
+			max-width: 40%;
+			height: auto;
+			display: block;
+			margin: auto;
+		}
+	</style>
+
+
+
+  <img id="slider" src="static/images/1.png">
+	<script>
+
+var i = 1;
+var interval = setInterval(function() {
+    var img_url = "static/images/" + i + ".png";
+    var img_element = document.createElement("img");
+    img_element.setAttribute("id", "slider");
+    img_element.setAttribute("src", img_url);
+    document.body.replaceChild(img_element);
+    i++;
+    if (i > 5) {
+        clearInterval(interval);
+    }
+}, 1000);
+
+
+
+
+		var images = ["static/letters/h.jpg", "static/letters/a.jpg", "static/letters/r.jpg"];
+
+
+
+    const translateForm = document.querySelector("#translate-form");
+    const recordBtn = document.querySelector("#record-btn");
+    const textInputContainer = document.querySelector("#text-input-container");
+    const textInput = document.querySelector("#text-input");
+    const translateBtn = document.querySelector("#translate-btn");
+    const outputTextarea = document.querySelector("#output");
+    const recognition = new webkitSpeechRecognition();
+
+    recordBtn.addEventListener("click", () => {
+      recognition.start();
+    });
+
+    recognition.onresult = (event) => {
+      const result = event.results[0][0].transcript;
+      textInput.value = result;
+      textInputContainer.style.display = "block";
+      outputTextarea.value = "";
+    };
+
+    translateForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = { text: textInput.value };
+
+      fetch("/translate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          outputTextarea.value = result.signLanguageArray.join(" ");
+     //this code is for output the image one by one
+          var i = 0;
+		function changeImage() {
+			document.getElementById("slider").src =result.signLanguageArray[i] ;
+			i++;
+			if (i == result.signLanguageArray.length) {
+				return;
+			}
+			setTimeout(changeImage, 1000);
+		}
+		changeImage();
+
+
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+  </script>
+</body>
+</html>
