@@ -1,35 +1,4 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-	<title>Translation Results</title>
-</head>	<script>
-		
-
-for (let i = 0; i < signLanguageArray.length; i++) {
-  setTimeout(() => {
-    const signLanguage = signLanguageArray[i];
-    const img = document.createElement('img');
-    img.src = signLanguage;
-    img.alt = '';
-    document.body.replaceChild(img, document.querySelector('img'));
-
-  }, i * intervalTime);
-}
-
-	</script>
-<body>
-
-	<h1>Translation Results</h1>
-	<p>Original text: {{ text }}</p>
-	
-		<img src='' alt="">
-
-	
-	
-</body>
-</html> -->
-
-
+ 
 
 <!DOCTYPE html>
 <html>
@@ -57,37 +26,7 @@ for (let i = 0; i < signLanguageArray.length; i++) {
     {% endif %}
 
     
-    <script> -->
-      
-<!-- const slideshow = document.getElementById('slideshow');
-     
 
-let currentImageIndex = 0;
-
-function showNextImage() {
-  const currentImage = slideshow.querySelector('img:not([style*="opacity: 0"])');
-  if (currentImage) {
-    currentImage.style.opacity = 0;
-  }
-  const nextImage = slideshow.querySelector(`img:nth-child(${currentImageIndex + 1})`);
-  if (nextImage) {
-    nextImage.style.opacity = 1;
-    currentImageIndex = (currentImageIndex + 1) % images.length;
-    setTimeout(showNextImage, 2000); // Adjust the interval as needed
-  }
-}
-
-images.forEach((url, index) => {
-  const img = document.createElement('img');
-  img.src = url;
-  img.alt = '';
-  img.style.opacity = index === 0 ? 1 : 0;
-  slideshow.appendChild(img);
-});
-
-setTimeout(showNextImage, 2000); // Adjust the interval as needed
-
-    </script> -->
 
 
 
@@ -231,7 +170,7 @@ setTimeout(showNextImage, 2000); // Adjust the interval as needed
       margin: 0 2px;
       background-color: #bbb;
       border-radius: 50%;
-      display: inline-block;
+      display: inline-block flexbox;
       transition: background-color 0.6s ease;
     }
     
