@@ -39,10 +39,11 @@ def translate(word):
                                 
                                 
                                 else:
+                                    signLanguageArray=[]
                                     for i in range(len(a)):
                                                     if(a[i] in arr):
                                                            ImageAddress = 'static/letters/'+a[i]+'.jpg'
-                                                           return ImageAddress
+                                                           signLanguageArray.append(ImageAddress)
                                                         # def serve_image():
                                                         #    return send_file('letters/'+a[i]+'.jpg', mimetype='image/jpeg')
                                                             # ImageAddress = 'static/letters/'+a[i]+'.jpg'
@@ -52,7 +53,7 @@ def translate(word):
                                                         #     plt.draw()
                                                         #     plt.pause(0.8)
                                                             # return ImageNumpyFormat
-                                                    
+                                    return signLanguageArray            
 
                         except:
                                print(" ")
@@ -81,8 +82,8 @@ def home():
 @app.route('/translate', methods=['POST'])
 def translate_text():
     text = request.form['text']
-    sign_language = translate(text)
-    return render_template('translate.html', text=text, sign_language=sign_language)
+    signLanguageArray  = translate(text)
+    return render_template('translate.html', text=text, signLanguageArray =signLanguageArray)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(debug=True,host='0.0.0.0')

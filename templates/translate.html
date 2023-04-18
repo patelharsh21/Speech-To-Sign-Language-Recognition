@@ -1,10 +1,9 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 	<title>Translation Results</title>
 </head>	<script>
-		const signLanguageArray = ['static/letters/h.jpg', 'static/letters/a.jpg', 'static/letters/r.jpg', 'static/letters/s.jpg'];
-const intervalTime = 1000; // 3 seconds
+		
 
 for (let i = 0; i < signLanguageArray.length; i++) {
   setTimeout(() => {
@@ -12,7 +11,8 @@ for (let i = 0; i < signLanguageArray.length; i++) {
     const img = document.createElement('img');
     img.src = signLanguage;
     img.alt = '';
-    document.body.appendChild(img);
+    document.body.replaceChild(img, document.querySelector('img'));
+
   }, i * intervalTime);
 }
 
@@ -27,4 +27,228 @@ for (let i = 0; i < signLanguageArray.length; i++) {
 	
 	
 </body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speech to Sign Language</title>
+</head>
+<body>
+    <h1>Speech to Sign Language Translation</h1>
+    <form action="/translate" method="POST">
+        <label for="text">Enter your text:</label>
+        <input type="text" id="text" name="text">
+        <input type="submit" value="Translate">
+    </form>
+    <!-- <img src="" alt="">
+     {% if signLanguageArray %}
+        {% for url in signLanguageArray %}
+        <script>
+        const signLanguage = signLanguageArray[loop.index()];
+        const img = document.createElement('img');
+        img.src = signLanguage;
+        img.alt = '';
+        document.body.replaceChild(img, document.querySelector('img'));
+        </script>
+        {% endfor %}
+    {% endif %}
+
+    
+    <script> -->
+      
+<!-- const slideshow = document.getElementById('slideshow');
+     
+
+let currentImageIndex = 0;
+
+function showNextImage() {
+  const currentImage = slideshow.querySelector('img:not([style*="opacity: 0"])');
+  if (currentImage) {
+    currentImage.style.opacity = 0;
+  }
+  const nextImage = slideshow.querySelector(`img:nth-child(${currentImageIndex + 1})`);
+  if (nextImage) {
+    nextImage.style.opacity = 1;
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    setTimeout(showNextImage, 2000); // Adjust the interval as needed
+  }
+}
+
+images.forEach((url, index) => {
+  const img = document.createElement('img');
+  img.src = url;
+  img.alt = '';
+  img.style.opacity = index === 0 ? 1 : 0;
+  slideshow.appendChild(img);
+});
+
+setTimeout(showNextImage, 2000); // Adjust the interval as needed
+
+    </script> -->
+
+
+
+
+
+    <!-- Slideshow container -->
+<div class="slideshow-container">
+
+  <!-- Full-width images with number and caption text -->
+ 
+  {% if signLanguageArray %}
+  {% for url in signLanguageArray %}
+ <div class="mySlides fade">
+    <div class="numbertext">1 / 3</div>
+    <img src={{url}} style="width:100%">
+    <div class="text">Caption Text</div>
+  </div>
+  <div style="text-align:center">
+  <span class="dot" onclick="currentSlide(loop.index())"></span>
+
+</div>
+  {% endfor %}
+{% endif %}
+
+{% if signLanguageArray %}
+{% for url in signLanguageArray %}
+
+<div style="text-align:center">
+<span class="dot" onclick="currentSlide(loop.index())"></span>
+
+</div>
+{% endfor %}
+{% endif %}
+  <!-- Next and previous buttons -->
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br>
+
+<!-- The dots/circles -->
+
+
+
+
+
+<script>let slideIndex = 1;
+  showSlides(slideIndex);
+  
+  // Next/previous controls
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+  
+  // Thumbnail image controls
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+  
+  function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " active";
+  }</script>
+
+  <style>* {box-sizing:border-box}
+
+    /* Slideshow container */
+    .slideshow-container {
+      max-width: 1000px;
+      position: relative;
+      margin: auto;
+    }
+    
+    /* Hide the images by default */
+    .mySlides {
+      display: none;
+    }
+    
+    /* Next & previous buttons */
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      margin-top: -22px;
+      padding: 16px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.6s ease;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+    }
+    
+    /* Position the "next button" to the right */
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+    
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover, .next:hover {
+      background-color: rgba(0,0,0,0.8);
+    }
+    
+    /* Caption text */
+    .text {
+      color: #f2f2f2;
+      font-size: 15px;
+      padding: 8px 12px;
+      position: absolute;
+      bottom: 8px;
+      width: 100%;
+      text-align: center;
+    }
+    
+    /* Number text (1/3 etc) */
+    .numbertext {
+      color: #f2f2f2;
+      font-size: 12px;
+      padding: 8px 12px;
+      position: absolute;
+      top: 0;
+    }
+    
+    /* The dots/bullets/indicators */
+    .dot {
+      cursor: pointer;
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+    
+    .active, .dot:hover {
+      background-color: #717171;
+    }
+    
+    /* Fading animation */
+    .fade {
+      animation-name: fade;
+      animation-duration: 1.5s;
+    }
+    
+    @keyframes fade {
+      from {opacity: .4}
+      to {opacity: 1}
+    }</style>
+</body>
 </html>
+
