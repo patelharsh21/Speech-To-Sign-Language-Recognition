@@ -40,19 +40,16 @@
 
 
 
-  <img id="slider" src="static/images/1.png">
+  <img id="slider" src="static/images/1.png"    width="500" height="500">
 	<script>
 
 var i = 1;
 var interval = setInterval(function() {
     var img_url = "static/images/" + i + ".png";
-    var img_element = document.createElement("img");
-    img_element.setAttribute("id", "slider");
-    img_element.setAttribute("src", img_url);
-    document.body.replaceChild(img_element);
+    document.getElementById("slider").src =img_url ;
     i++;
     if (i > 5) {
-        clearInterval(interval);
+         i=1;
     }
 }, 1000);
 
