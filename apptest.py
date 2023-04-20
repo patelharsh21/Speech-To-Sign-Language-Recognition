@@ -56,7 +56,7 @@ def translate_text():
     signLanguageArray = translate(text)
     return {"signLanguageArray": signLanguageArray}
 
-
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
