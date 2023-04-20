@@ -7,6 +7,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <title>Document</title>
 
 <!-- code for heading -->
@@ -16,6 +20,29 @@
         background-color: #f5f5f5;
         font-family: Arial, sans-serif;
       } */
+      .centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+
+
+      #text-input {
+  width: 30%;
+  height: 70px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ff000000;
+  border-radius: 5px;
+  /* box-sizing: border-box; */
+  background-color: #0dace678;
+  color: #ffffff;
+}
+
+
 
       h1 {
         text-align: center;
@@ -41,16 +68,21 @@
     
 </head>
 <body>
+  
+
    <h1><span class="sign-icon"></span>Speech-to-Sign Language Converter</h1>
+   <br>
+   <div class="centered">
    <div id="text-input-container" style="display: none"></div> 
   <form id="translate-form">
-    <button type="button" id="record-btn">Record Audio</button>
+    <button type="button" id="record-btn" class="btn btn-info">Record Audio</button>
    
       <!-- <label for="text">Recorded text:</label>  -->  
       <textarea id="text-input" name="text" placeholder="Speak or type to translate"></textarea> 
-      <button type="submit" id="translate-btn">Translate</button>
-    </div>
+      <button type="submit" id="translate-btn" class="btn btn-primary">   &nbsp;   Translate      &nbsp; </button>
+    
   </form>
+</div>
 
   <!-- <textarea id="output"></textarea> -->
 
@@ -129,7 +161,7 @@
 		function changeImage() {
 			document.getElementById("slider").src =result.signLanguageArray[i] ;
 			i++;
-			if (i == result.signLanguageArray.length) {
+			if (i == result.signLanguageArray.length+1) {
         document.getElementById("slider").src="static/images/cartoonbgremove.png";
 				return;
 			}
