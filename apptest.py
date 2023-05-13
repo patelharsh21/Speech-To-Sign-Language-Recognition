@@ -57,7 +57,7 @@ def translate(text):
                                                     signLanguageArray.append('static/ISL_Gifs/'+word+'.gif')
                                             else:
                                                 for i in range(len(word)):
-                                                                if(word[i] in arr) and word not in stopwords.words('english'):
+                                                                if(word[i] in arr):
                                                                     ImageAddress = 'static/letters/'+word[i]+'.jpg'
                                                                     signLanguageArray.append(ImageAddress)
                                                                 
