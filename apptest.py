@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import string
 import matplotlib.pyplot as plt
 from flask import Flask, render_template
+from nltk.corpus import stopwords
 isl_gif=['any questions', 'are you angry', 'are you busy', 'are you hungry', 'are you sick', 'be careful',
                 'can we meet tomorrow', 'did you book tickets', 'did you finish homework', 'do you go to office', 'do you have money',
                 'do you want something to drink','hello''do you want tea or coffee', 'do you watch TV', 'dont worry', 'flower is beautiful',
@@ -21,7 +22,7 @@ isl_gif=['any questions', 'are you angry', 'are you busy', 'are you hungry', 'ar
 'may', 'mile', 'monday', 'mumbai', 'museum', 'muslim', 'nagpur', 'october', 'orange', 'pakistan', 'pass', 'police station',
 'post office', 'pune', 'punjab', 'rajasthan', 'ram', 'restaurant', 'saturday', 'september', 'shop', 'sleep', 'southafrica',
 'story', 'sunday', 'tamil nadu', 'temperature', 'temple', 'thursday', 'toilet', 'tomato', 'town', 'tuesday', 'usa', 'village',
-'voice', 'wednesday', 'weight','please wait for sometime','what is your mobile number','what are you doing','are you busy']
+'voice', 'wednesday', 'weight','please wait for sometime','what is your mobile number','what are you doing','are you busy','air','produce','environment','animals','because','care','clean','forest','future','generations','health','health','help','homes','important','keep','more','ourselves','oxygen','plant','protect','provide','taking','they','trees','try','we']
         
         
         
@@ -44,15 +45,19 @@ def translate(text):
                                 elif(sentence.lower() in isl_gif):
                                      signLanguageArray.append('static/ISL_Gifs/'+sentence+'.gif')
                                      return signLanguageArray
+                                
+                                
                                     
                                 else:
                                     word_list = sentence.split()
-                                    for word in  word_list:
-                                            if word in isl_gif:
+                                    
+                                   
+                                    for word in  word_list :
+                                            if word in isl_gif and word not in stopwords.words('english'):
                                                     signLanguageArray.append('static/ISL_Gifs/'+word+'.gif')
                                             else:
                                                 for i in range(len(word)):
-                                                                if(word[i] in arr):
+                                                                if(word[i] in arr) and word not in stopwords.words('english'):
                                                                     ImageAddress = 'static/letters/'+word[i]+'.jpg'
                                                                     signLanguageArray.append(ImageAddress)
                                                                 
