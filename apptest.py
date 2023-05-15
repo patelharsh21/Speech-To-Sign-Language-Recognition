@@ -3,6 +3,25 @@ import string
 import matplotlib.pyplot as plt
 from flask import Flask, render_template
 from nltk.corpus import stopwords
+
+from PIL import Image
+
+def get_gif_duration(image_path):
+    with Image.open(image_path) as img:
+        # Check if the image is animated (a GIF)
+        if img.is_animated:
+            # Get the duration of each frame in milliseconds
+            durations = []
+            for frame in range(0, img.n_frames):
+                img.seek(frame)
+                durations.append(img.info['duration'])
+                
+            
+            # Calculate the total duration of the GIF
+            total_duration = sum(durations) / 1000  # Convert milliseconds to seconds
+            return total_duration
+    return 0
+
 isl_gif=['any questions', 'are you angry', 'are you busy', 'are you hungry', 'are you sick', 'be careful',
                 'can we meet tomorrow', 'did you book tickets', 'did you finish homework', 'do you go to office', 'do you have money',
                 'do you want something to drink','hello''do you want tea or coffee', 'do you watch TV', 'dont worry', 'flower is beautiful',
@@ -22,7 +41,7 @@ isl_gif=['any questions', 'are you angry', 'are you busy', 'are you hungry', 'ar
 'may', 'mile', 'monday', 'mumbai', 'museum', 'muslim', 'nagpur', 'october', 'orange', 'pakistan', 'pass', 'police station',
 'post office', 'pune', 'punjab', 'rajasthan', 'ram', 'restaurant', 'saturday', 'september', 'shop', 'sleep', 'southafrica',
 'story', 'sunday', 'tamil nadu', 'temperature', 'temple', 'thursday', 'toilet', 'tomato', 'town', 'tuesday', 'usa', 'village',
-'voice', 'wednesday', 'weight','please wait for sometime','what is your mobile number','what are you doing','are you busy','air','produce','environment','animals','because','care','clean','forest','future','generations','health','health','help','homes','important','keep','more','ourselves','oxygen','plant','protect','provide','taking','they','trees','try','we']
+'voice', 'wednesday', 'weight','please wait for sometime','what is your mobile number','what are you doing','are you busy','air','produce','environment','animals','because','care','clean','forest','future','generations','health','health','help','homes','important','keep','more','ourselves','oxygen','plant','protect','provide','taking','they','trees','try','we','abbreviation','and','give','home','for','will','healthy']
         
         
         
@@ -43,7 +62,10 @@ def translate(text):
                                         
                                 
                                 elif(sentence.lower() in isl_gif):
-                                     signLanguageArray.append('static/ISL_Gifs/'+sentence+'.gif')
+                                     duration = get_gif_duration('static/ISL_Gifs/'+sentence+'.gif')
+                                     duration= str(duration)
+                                     signLanguageArray.append('static/ISL_Gifs/'+sentence+'.gif'+" "+duration)
+                                     print(signLanguageArray)
                                      return signLanguageArray
                                 
                                 
@@ -53,8 +75,11 @@ def translate(text):
                                     
                                    
                                     for word in  word_list :
-                                            if word in isl_gif and word not in stopwords.words('english'):
-                                                    signLanguageArray.append('static/ISL_Gifs/'+word+'.gif')
+                                        # if word not in stopwords.words('english'):
+                                            if word in isl_gif :
+                                                    duration = get_gif_duration('static/ISL_Gifs/'+word+'.gif')
+                                                    duration= str(duration)
+                                                    signLanguageArray.append('static/ISL_Gifs/'+word+'.gif'+" "+duration)
                                             else:
                                                 for i in range(len(word)):
                                                                 if(word[i] in arr):
@@ -74,8 +99,6 @@ def translate_text():
     text = request.json["text"]
     signLanguageArray = translate(text)
     return {"signLanguageArray": signLanguageArray}
-
-    
 
 if __name__ == "__main__":
    app.run(debug=True)
